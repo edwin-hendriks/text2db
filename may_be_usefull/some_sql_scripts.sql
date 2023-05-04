@@ -1,0 +1,21 @@
+-- should not be needed anymore because this tool already takes care of this for all csv files in a folder.
+truncate old_db."CLIABCP";
+truncate old_db."CLIADTP";
+truncate old_db."CLIDEBP";
+truncate old_db."CLIEGRP";
+truncate old_db."CLIENTP";
+truncate old_db."CLIGRP";
+truncate old_db."CLIMGREMAL";
+truncate old_db."CURRP";
+truncate old_db."DEBCGRP";
+truncate old_db."USERSEMAIL";
+COPY     old_db."CLIABCP" FROM '/tmp/CLIABCP.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
+COPY     old_db."CLIADTP" FROM '/tmp/CLIADTP.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
+COPY     old_db."CLIDEBP" FROM '/tmp/CLIDEBP.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
+COPY     old_db."CLIEGRP" FROM '/tmp/CLIEGRP.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
+COPY     old_db."CLIENTP" FROM '/tmp/CLIENTP.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
+COPY     old_db."CLIGRP" FROM '/tmp/CLIGRP.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
+COPY     old_db."CLIMGREMAL" FROM '/tmp/CLIMGREMAL.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
+COPY     old_db."CURRP" FROM '/tmp/CURRP.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
+COPY     old_db."DEBCGRP" FROM '/tmp/DEBCGRP.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
+COPY     old_db."USERSEMAIL" FROM '/tmp/USERSEMAIL.CSV' (FORMAT csv, DELIMITER ';', HEADER true);
