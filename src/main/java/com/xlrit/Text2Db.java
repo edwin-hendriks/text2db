@@ -108,7 +108,7 @@ public class Text2Db {
         String tabelName = textFileName.substring(0, textFileName.lastIndexOf(".")); // table name - filename without extension
         StringBuilder truncateSql = new StringBuilder("TRUNCATE old_db.").append(quoted(tabelName));
         StringBuilder psqlCommand = new StringBuilder("psql -c ")
-            .append(quoted("\\copy old_db.\\\"" + tabelName + "\\\" FROM '" + fullPathToFile + "' ( DELIMITER ';', HEADER true)"));
+            .append(quoted("\\copy old_db.\\\"" + tabelName + "\\\" FROM '" + fullPathToFile + "' (FORMAT csv, DELIMITER ';', HEADER true)"));
         // TODO: low prio but initially I tried to execute a SQL COPY command (in importTextFileSql) which does not require psql to be installed but that does not seem to work because it does not recognize the files. Not sure why.
         // StringBuilder importTextFileSql = new StringBuilder("COPY old_db.").append(quoted(tabelName)).append(" FROM '")
             // .append("/tmp/" + textFileName).append("' (DELIMITER ';', HEADER true)");
