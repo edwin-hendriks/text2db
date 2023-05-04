@@ -5,17 +5,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.xlrit</groupId>
-  <artifactId>db_migration</artifactId>
+  <artifactId>text2db</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>db_migration</name>
+  <name>text2db</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -30,9 +30,9 @@
       <version>42.5.0</version>
     </dependency>
     <dependency>
-      <groupId>com.googlecode.paradoxdriver</groupId>
-      <artifactId>paradoxdriver</artifactId>
-      <version>1.6.0</version>
+        <groupId>com.opencsv</groupId>
+        <artifactId>opencsv</artifactId>
+        <version>5.5</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -89,7 +89,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>com.xlrit.Migrate</mainClass>
+                <mainClass>com.xlrit.Text2Db</mainClass>
               </manifest>
             </archive>
             <descriptorRefs>
