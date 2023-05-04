@@ -5,11 +5,19 @@ This tool (for now) will do a raw 1-to-1 data migration from a folder containing
 
 - [1. Introduction](#1-introduction)
 - [2. Table of content](#2-table-of-content)
+- [Pre-requisites](#pre-requisites)
 - [3. How to create a single executable jar (aka 'fat jar')](#3-how-to-create-a-single-executable-jar-aka-fat-jar)
 - [4. How to use](#4-how-to-use)
   - [4.1. When you have created a single executable (fat) jar](#41-when-you-have-created-a-single-executable-fat-jar)
   - [4.2. Directly from VS Code (without having to create fat jar)](#42-directly-from-vs-code-without-having-to-create-fat-jar)
 - [5. Performance](#5-performance)
+
+# Pre-requisites
+
+* A postgres db running. I did that with docker: `docker run -p 5432:5432 --name poc_edwin -e POSTGRES_USER=poc_edwin -e POSTGRES_PASSWORD=somepasswd -e POSTGRES_DB=poc_edwin -d postgres` (and later restarts can be done by `docker start poc_edwin`)
+* Java 11 (but to be honest I tested this with a Java 17 installation and only java 11 in the pom.xml)
+* Maven installed
+* Postgres (15) but only the command line utility psql
 
 # 3. How to create a single executable jar (aka 'fat jar')
 
@@ -62,7 +70,6 @@ Argument | How to fill
 2 | JDBC URL to destination DB.
 
 3. Press **CTL+F5**
-
 
 # 5. Performance
 
