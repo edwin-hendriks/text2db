@@ -2,9 +2,11 @@ package com.xlrit;
 
 import static com.xlrit.Utils.log;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,11 +53,11 @@ public class Text2Db {
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws FileNotFoundException, IOException {
                     if (!Files.isDirectory(file)) {
 
-                        log("[INFO] START IMPORTING FILE: " + file.toString());
+                        log("[INFO] ***************** START IMPORTING FILE: " + file.toString());
                         try (Connection destinationDbConnection = DriverManager.getConnection(destinationDbUrl, destinationUser,
                                         destinationPass)) {
 
-                            log("[INFO] creating schema if it not yet exists"); // TODO: low prio but this should be done only once per schema and not for each file/table
+                            log("[INFO] CREATING SCHEMA IF IT NOT YET EXISTS"); // TODO: low prio but this should be done only once per schema and not for each file/table
                             destinationDbConnection.createStatement().executeUpdate("CREATE SCHEMA IF NOT EXISTS old_db");
 
                             createTable(file, destinationDbConnection);
@@ -74,7 +76,7 @@ public class Text2Db {
             e.printStackTrace();
         }
 
-        log("[SUCCESS] FINISHED IMPORTING (in " + (System.currentTimeMillis() - startMillis) / 1000 + " seconds)");
+        log("[SUCCESS] *************** FINISHED IMPORTING (in " + (System.currentTimeMillis() - startMillis) / 1000 + " seconds)");
     }
 
     private void createTable(Path textFile, Connection destinationDbConnection) throws SQLException, FileNotFoundException, IOException, CsvValidationException {
@@ -117,7 +119,14 @@ public class Text2Db {
             log("[INFO] TRUNCATING TABLE WITH THIS QUERY: " + truncateSql);
             statement.execute(truncateSql.toString());
             log("[INFO] IMPORTING FILES USING PSQL COMMAND: " + psqlCommand );
-            Runtime.getRuntime().exec(psqlCommand.toString());
+            Process psqlProcess = Runtime.getRuntime().exec(psqlCommand.toString());
+            log("[INFO] RESULT OF PSQL COMMAND:");
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(psqlProcess.getInputStream()));
+            BufferedReader stdError = new BufferedReader(new InputStreamReader(psqlProcess.getErrorStream()));
+            String s = null;
+            while ((s = stdInput.readLine()) != null) System.out.println(s); 
+            while ((s = stdError.readLine()) != null) System.out.println(s);
+
             // see TODO above.
             // log("[INFO] IMPORTING FILE WITH THIS QUERY: " + importTextFileSql);
             // statement.execute(importTextFileSql.toString());
